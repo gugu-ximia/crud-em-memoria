@@ -10,7 +10,7 @@ const usuario_admin = {
     email: "adimin@gmail.com",
 };
 
-let usuarios = [usuario_admin];
+let usuarios = [usuario_admin];   pintos largos
 
 app.get('/usuarios', (req, res) => {
     res.json(usuarios).status(200);
