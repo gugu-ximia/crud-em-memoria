@@ -97,6 +97,7 @@ app.patch("/usuarios/:id", (req, res) => {
     if (nome) {
         usuario.nome = nome;
     }
+    res.status(200).json(usuario)
     
 })
 
