@@ -12,29 +12,35 @@ const usuario_admin = {
 
 let usuarios = [usuario_admin];
 
+// PEGA TODOS OS USUARIOS
 app.get('/usuarios', (req, res) => {
     res.json(usuarios).status(200);
 });
 
+// ADICIONA NOVOS USUARIOS
 app.post("/usuarios", (req, res) => {
     const {nome, email} = req.body;
 
+    // VERIFICA SE TEM NOME E E-MAIL
     if (!nome || !email) {
         res.status(400).json({mensagem: "Nome e Email obrigatorios"});
     }
 
+    // CRIA UM NOVO USUARIO
     const novoUsuario = {
         nome: nome,
         email: email,
         id: ultimoId + 1,
     };
 
+    // PEGA O ULTIMO ID UTILIZADO E 
     usuarios.push(novoUsuario);
     ultimoId += 1;
 
     res.send({})
 })
 
+// DELETA OS USUARIOS
 app.delete("/usuarios/:id", (req, res) => {
 
     /* pega o id */
@@ -57,5 +63,15 @@ app.delete("/usuarios/:id", (req, res) => {
     return res.status(204).send()
     
 });
+
+app.patch("/usuarios/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+        return res.status(400).json({mensagem: "ID inválido, precisa ser um numero"})
+    };
+
+    const Usuario = usuarios.find((usuarios) => usuario.id === id);
+})
 
 app.listen(3000);
