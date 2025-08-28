@@ -76,23 +76,26 @@ app.patch("/usuarios/:id", (req, res) => {
         return res.status(404).json({mensagem: "Usuario não encontrado"})
     }
 
-    const {novoNome, novoEmail } = req.body;
+    const {nome, email } = req.body;
 
     if (!nome && !email) {
         return res.status(400).json({mensagem: "manda pelo menos um dos dados"})
     }
 
+    // ATUALIZA O E-MAIL DO USUARIO 
     if (email) {
-        let emai_existe = usuarios.findIndex((usuario) => usuario.email === email);
+        let email_existe = usuarios.findIndex((usuario) => usuario.email === email);
 
         if (email_existe !== -1) {
             return res.status(409).json({mensagem: "E-mail já cadastrado"})
         }
 
-        // ATUALIZAR E-MAIL
-        usuario_a_atualizar = usuarios.find((usuario) => usuario.id === id);
-        usuario_a_atualizar.email = email
+        usuario.email = email;
+    }
 
+    // ATUALIZAR O NOME DO USUARIO
+    if (nome) {
+        usuario.nome = nome;
     }
     
 })
