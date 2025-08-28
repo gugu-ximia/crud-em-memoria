@@ -89,6 +89,10 @@ app.patch("/usuarios/:id", (req, res) => {
             return res.status(409).json({mensagem: "E-mail já cadastrado"})
         }
 
+        // ATUALIZAR E-MAIL
+        usuario_a_atualizar = usuarios.find((usuario) => usuario.id === id);
+        usuario_a_atualizar.email = email
+
     }
     
 })
