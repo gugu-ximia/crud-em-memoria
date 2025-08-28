@@ -71,7 +71,26 @@ app.patch("/usuarios/:id", (req, res) => {
         return res.status(400).json({mensagem: "ID inválido, precisa ser um numero"})
     };
 
-    const Usuario = usuarios.find((usuarios) => usuario.id === id);
+    const usuario = usuarios.find((usuario) => usuario.id === id);
+    if (!usuario) {
+        return res.status(404).json({mensagem: "Usuario não encontrado"})
+    }
+
+    const {novoNome, novoEmail } = req.body;
+
+    if (!nome && !email) {
+        return res.status(400).json({mensagem: "manda pelo menos um dos dados"})
+    }
+
+    if (email) {
+        let emai_existe = usuarios.findIndex((usuario) => usuario.email === email);
+
+        if (email_existe !== -1) {
+            return res.status(409).json({mensagem: "E-mail já cadastrado"})
+        }
+
+    }
+    
 })
 
 app.listen(3000);
